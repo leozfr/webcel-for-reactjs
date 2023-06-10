@@ -8,22 +8,22 @@ const PORT = 3010;
 app.use(express.json());
 app.use(cors());
 
-// GMail API kimlik bilgilerini ayarlayın
-const CLIENT_ID = '753085379190-t2cbtdo384o25e99d2625g12agtessfl.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04eoCdHLhF8meCgYIARAAGAQSNwF-L9IrUo7Xac5bYVaVC_t9W1Yb5lJJn-clSAdBRu20aMTS96FhfACWaocaVqzb2So3fs6PHkA';
+// SET GMail API
+const CLIENT_ID = '';
+const CLIENT_SECRET = ' ';
+const REDIRECT_URI = '';
+const REFRESH_TOKEN = '';
 
-// GMail API'ye yetkilendirme işlemi
+// GMail API'permission
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-// E-posta gönderme işlemi
+// Send Email
 const sendEmail = async (to, subject, message) => {
   const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
 
   const emailLines = [];
-  emailLines.push(`From: "EmirJS" <emir1903@topkapi.edu.tr>`);
+  emailLines.push(`From: "EmirJS" <emirtest@test.com>`);
   emailLines.push(`To: ${to}`);
   emailLines.push('Content-type: text/html;charset=iso-8859-1');
   emailLines.push(`Subject: ${subject}`);
@@ -78,7 +78,7 @@ app.post('/send-email', async (req, res) => {
     message += '</table>';
 
     // E-postayı gönderme
-    await sendEmail(selectedOption, userEmail + ' - E-Puan Tablosu', message);
+    await sendEmail(selectedOption, userEmail + ' - Excel Table', message);
 
     res.status(200).json({ success: true, message: 'Email sent successfully.' });
   } catch (error) {
